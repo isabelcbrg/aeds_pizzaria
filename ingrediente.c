@@ -81,3 +81,39 @@ void removerIngrediente() {
         printf("Ingrediente não encontrado.\n");
     }
 }
+
+void salvarIngredientes() {
+    FILE *arquivo = fopen("ingredientes.txt", "w");
+    if (!arquivo) {
+        printf("Erro ao abrir o arquivo para salvar ingredientes.\n");
+        return;
+    }
+
+    fprintf(arquivo, "%d\n", numIngredientes);
+    for (int i = 0; i < numIngredientes; i++) {
+        fprintf(arquivo, "%d\n%s\n%.2f\n",
+                ingredientes[i].id, ingredientes[i].nome, ingredientes[i].preco);
+    }
+
+    fclose(arquivo);
+    printf("Ingredientes salvos com sucesso!\n");
+}
+
+void carregarIngredientes() {
+    FILE *arquivo = fopen("ingredientes.txt", "r");
+    if (!arquivo) {
+        printf("Nenhum arquivo de ingredientes encontrado. Começando com lista vazia.\n");
+        return;
+    }
+
+    fscanf(arquivo, "%d\n", &numIngredientes);
+    ingredientes = malloc(numIngredientes * sizeof(Ingrediente));
+    for (int i = 0; i < numIngredientes; i++) {
+        fscanf(arquivo, "%d\n", &ingredientes[i].id);
+        fscanf(arquivo, " %[^\n]\n", ingredientes[i].nome);
+        fscanf(arquivo, "%f\n", &ingredientes[i].preco);
+    }
+
+    fclose(arquivo);
+    printf("Ingredientes carregados com sucesso!\n");
+}

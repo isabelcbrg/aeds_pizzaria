@@ -6,10 +6,10 @@
 typedef struct Pizza{
     int id;
     char nome[50];
-    char tamanho; 
+    char tamanho;
     float preco;
     int numIngredientes;
-    Ingrediente *ingredientes; 
+    Ingrediente *ingredientes;
 } Pizza;
 
 void adicionarPizza();
@@ -17,5 +17,9 @@ void listarPizzas();
 void editarPizza();
 void removerPizza();
 void venderPizza();
+
+// Protótipos para salvar/carregar
+void salvarPizzas();
+void carregarPizzas();
 
 #endif

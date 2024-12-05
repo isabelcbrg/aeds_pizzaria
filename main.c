@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "header/pizza.h"
-#include "header/ingrediente.h"
+#include "pizza.h"
+#include "ingrediente.h"
 
 // Funções de menu
 void menuIngredientes() {
@@ -13,7 +13,7 @@ void menuIngredientes() {
         printf("3. Editar Ingrediente\n");
         printf("4. Remover Ingrediente\n");
         printf("0. Voltar ao menu principal\n");
-        printf("Escolha uma opção: ");
+        printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
 
         switch (opcao) {
@@ -33,7 +33,7 @@ void menuIngredientes() {
                 printf("Retornando ao menu principal...\n");
                 break;
             default:
-                printf("Opção inválida. Tente novamente.\n");
+                printf("Opcao invalida. Tente novamente.\n");
         }
     } while (opcao != 0);
 }
@@ -48,7 +48,7 @@ void menuPizzas() {
         printf("4. Remover Pizza\n");
         printf("5. Vender Pizza\n");
         printf("0. Voltar ao menu principal\n");
-        printf("Escolha uma opção: ");
+        printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
 
         switch (opcao) {
@@ -58,33 +58,35 @@ void menuPizzas() {
             case 2:
                 listarPizzas();
                 break;
-            case 3:
-                editarPizza();
-                break;
-            case 4:
-                removerPizza();
-                break;
-            case 5:
-                venderPizza();
-                break;
+            //case 3:
+              //  editarPizza();
+               // break;
+            //case 4:
+              //  removerPizza();
+               // break;
+            //case 5:
+              //  venderPizza();
+               // break;
             case 0:
                 printf("Retornando ao menu principal...\n");
                 break;
             default:
-                printf("Opção inválida. Tente novamente.\n");
+                printf("Opcao invalida. Tente novamente.\n");
         }
     } while (opcao != 0);
 }
 
 int main() {
-    int opcao;
+    carregarIngredientes(); // Carrega os ingredientes do arquivo
+    carregarPizzas();       // Carrega as pizzas do arquivo
 
+    int opcao;
     do {
         printf("\n=== Sistema da Pizzaria ===\n");
         printf("1. Gerenciar Ingredientes\n");
         printf("2. Gerenciar Pizzas\n");
         printf("0. Sair\n");
-        printf("Escolha uma opção: ");
+        printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
 
         switch (opcao) {
@@ -95,11 +97,15 @@ int main() {
                 menuPizzas();
                 break;
             case 0:
-                printf("Saindo do sistema. Até logo!\n");
+                printf("Saindo do sistema. Salvando dados...\n");
+                salvarIngredientes(); // Salva os ingredientes no arquivo
+                salvarPizzas();       // Salva as pizzas no arquivo
                 break;
             default:
-                printf("Opção inválida. Tente novamente.\n");
+                printf("Opcao invalida. Tente novamente.\n");
         }
     } while (opcao != 0);
+
     return 0;
 }
+
