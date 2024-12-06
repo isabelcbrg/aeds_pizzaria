@@ -9,7 +9,7 @@ int numIngredientes = 0;
 void adicionarIngrediente() {
     ingredientes = realloc(ingredientes, (numIngredientes + 1) * sizeof(Ingrediente));
     if (!ingredientes) {
-        printf("Erro de alocação de memória.\n");
+        printf("Erro de alocacao de memoria.\n");
         exit(1);
     }
 
@@ -17,7 +17,7 @@ void adicionarIngrediente() {
     scanf("%d", &ingredientes[numIngredientes].id);
     printf("Nome do ingrediente: ");
     scanf(" %[^\n]", ingredientes[numIngredientes].nome);
-    printf("Preço do ingrediente: ");
+    printf("Preco do ingrediente: ");
     scanf("%f", &ingredientes[numIngredientes].preco);
 
     numIngredientes++;
@@ -78,7 +78,7 @@ void removerIngrediente() {
     }
 
     if (!encontrado) {
-        printf("Ingrediente não encontrado.\n");
+        printf("Ingrediente nao encontrado.\n");
     }
 }
 

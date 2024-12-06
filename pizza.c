@@ -4,13 +4,16 @@
 #include "pizza.h"
 #include "ingrediente.h"
 
+extern Ingrediente *ingredientes;
+extern int numIngredientes;
+
 Pizza *pizzas = NULL;
 int numPizzas = 0;
 
 void adicionarPizza() {
     pizzas = realloc(pizzas, (numPizzas + 1) * sizeof(Pizza));
     if (!pizzas) {
-        printf("Erro de alocação de memória.\n");
+        printf("Erro de alocacao de memoria.\n");
         exit(1);
     }
 
@@ -20,25 +23,35 @@ void adicionarPizza() {
     scanf(" %[^\n]", pizzas[numPizzas].nome);
     printf("Tamanho (P/M/G): ");
     scanf(" %c", &pizzas[numPizzas].tamanho);
-    printf("Preço base: ");
+    printf("Preco base: ");
     scanf("%f", &pizzas[numPizzas].preco);
 
-    printf("Quantos ingredientes padrão? ");
+    printf("Quantos ingredientes padrao? ");
     scanf("%d", &pizzas[numPizzas].numIngredientes);
 
     pizzas[numPizzas].ingredientes = malloc(pizzas[numPizzas].numIngredientes * sizeof(Ingrediente));
     if (!pizzas[numPizzas].ingredientes) {
-        printf("Erro de alocação de memória.\n");
+        printf("Erro de alocacao de memoria.\n");
         exit(1);
     }
 
     for (int i = 0; i < pizzas[numPizzas].numIngredientes; i++) {
+        int idIngrediente, encontrado = 0;
         printf("ID do ingrediente %d: ", i + 1);
-        scanf("%d", &pizzas[numPizzas].ingredientes[i].id);
-        printf("Nome do ingrediente: ");
-        scanf(" %[^\n]", pizzas[numPizzas].ingredientes[i].nome);
-        printf("Preço do ingrediente: ");
-        scanf("%f", &pizzas[numPizzas].ingredientes[i].preco);
+        scanf("%d", &idIngrediente);
+
+        for (int j = 0; j < numIngredientes; j++) {
+            if (ingredientes[j].id == idIngrediente) {
+                pizzas[numPizzas].ingredientes[i] = ingredientes[j];
+                encontrado = 1;
+                break;
+            }
+        }
+
+        if (!encontrado) {
+            printf("Ingrediente nao encontrado. Tente novamente.\n");
+            i--;
+        }
     }
 
     numPizzas++;
@@ -51,9 +64,9 @@ void listarPizzas() {
         return;
     }
 
-    printf("\n--- Cardápio de Pizzas ---\n");
+    printf("\n--- Cardapio de Pizzas ---\n");
     for (int i = 0; i < numPizzas; i++) {
-        printf("ID: %d | Nome: %s | Tamanho: %c | Preço Base: %.2f\n",
+        printf("ID: %d | Nome: %s | Tamanho: %c | Preco Base: %.2f\n",
                pizzas[i].id, pizzas[i].nome, pizzas[i].tamanho, pizzas[i].preco);
         printf("Ingredientes:\n");
         for (int j = 0; j < pizzas[i].numIngredientes; j++) {
@@ -61,6 +74,62 @@ void listarPizzas() {
                    pizzas[i].ingredientes[j].nome, pizzas[i].ingredientes[j].preco);
         }
     }
+}
+
+void venderPizza() {
+    if (numPizzas == 0) {
+        printf("Nenhuma pizza cadastrada.\n");
+        return;
+    }
+
+    int idPizza, idIngrediente, numExtras;
+    Pizza *pizzaSelecionada = NULL;
+
+    printf("\n--- Venda de Pizza ---\n");
+    printf("Informe o ID da pizza que deseja vender: ");
+    scanf("%d", &idPizza);
+
+    for (int i = 0; i < numPizzas; i++) {
+        if (pizzas[i].id == idPizza) {
+            pizzaSelecionada = &pizzas[i];
+            break;
+        }
+    }
+
+    if (!pizzaSelecionada) {
+        printf("Pizza nao encontrada.\n");
+        return;
+    }
+
+    printf("Pizza selecionada: %s (Preco Base: %.2f)\n", pizzaSelecionada->nome, pizzaSelecionada->preco);
+
+    printf("Quantos ingredientes adicionais deseja adicionar? ");
+    scanf("%d", &numExtras);
+
+    float precoFinal = pizzaSelecionada->preco;
+    for (int i = 0; i < numExtras; i++) {
+        int encontrado = 0;
+        printf("ID do ingrediente adicional %d: ", i + 1);
+        scanf("%d", &idIngrediente);
+
+        for (int j = 0; j < numIngredientes; j++) {
+            if (ingredientes[j].id == idIngrediente) {
+                printf("Ingrediente adicional adicionado: %s (%.2f)\n",
+                       ingredientes[j].nome, ingredientes[j].preco);
+                precoFinal += ingredientes[j].preco;
+                encontrado = 1;
+                break;
+            }
+        }
+
+        if (!encontrado) {
+            printf("Ingrediente nao encontrado. Tente novamente.\n");
+            i--;
+        }
+    }
+
+    printf("Venda registrada com sucesso!\n");
+    printf("Preco final da pizza: %.2f\n", precoFinal);
 }
 
 void salvarPizzas() {
@@ -87,7 +156,7 @@ void salvarPizzas() {
 void carregarPizzas() {
     FILE *arquivo = fopen("pizzas.txt", "r");
     if (!arquivo) {
-        printf("Nenhum arquivo de pizzas encontrado. Começando com lista vazia.\n");
+        printf("Nenhum arquivo de pizzas encontrado. Comecando com lista vazia.\n");
         return;
     }
 

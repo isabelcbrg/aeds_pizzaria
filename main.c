@@ -5,6 +5,7 @@
 
 // Funções de menu
 void menuIngredientes() {
+
     int opcao;
     do {
         printf("\n--- Menu de Ingredientes ---\n");
@@ -39,6 +40,7 @@ void menuIngredientes() {
 }
 
 void menuPizzas() {
+
     int opcao;
     do {
         printf("\n--- Menu de Pizzas ---\n");
@@ -77,8 +79,8 @@ void menuPizzas() {
 }
 
 int main() {
-    carregarIngredientes(); // Carrega os ingredientes do arquivo
-    carregarPizzas();       // Carrega as pizzas do arquivo
+    carregarIngredientes();
+    carregarPizzas();
 
     int opcao;
     do {
