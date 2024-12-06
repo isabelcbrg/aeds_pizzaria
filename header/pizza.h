@@ -17,8 +17,6 @@ void listarPizzas();
 void editarPizza();
 void removerPizza();
 void venderPizza();
-
-// Protótipos para salvar/carregar
 void salvarPizzas();
 void carregarPizzas();
 
