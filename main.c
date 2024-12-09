@@ -5,6 +5,7 @@
 
 // Funções de menu
 void menuIngredientes() {
+
     int opcao;
     do {
         printf("\n--- Menu de Ingredientes ---\n");
@@ -39,6 +40,7 @@ void menuIngredientes() {
 }
 
 void menuPizzas() {
+
     int opcao;
     do {
         printf("\n--- Menu de Pizzas ---\n");
@@ -58,15 +60,15 @@ void menuPizzas() {
             case 2:
                 listarPizzas();
                 break;
-            //case 3:
-              //  editarPizza();
-               // break;
-            //case 4:
-              //  removerPizza();
-               // break;
-            //case 5:
-              //  venderPizza();
-               // break;
+            case 3:
+                editarPizza();
+                break;
+            case 4:
+                removerPizza();
+                break;
+            case 5:
+                venderPizza();
+                break;
             case 0:
                 printf("Retornando ao menu principal...\n");
                 break;
@@ -77,8 +79,8 @@ void menuPizzas() {
 }
 
 int main() {
-    carregarIngredientes(); // Carrega os ingredientes do arquivo
-    carregarPizzas();       // Carrega as pizzas do arquivo
+    carregarIngredientes();
+    carregarPizzas();
 
     int opcao;
     do {
@@ -108,5 +110,4 @@ int main() {
 
     return 0;
 }
-
 
