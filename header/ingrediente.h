@@ -7,6 +7,8 @@ typedef struct Ingrediente{
     float preco;
 } Ingrediente;
 
+
+
 void adicionarIngrediente();
 void listarIngredientes();
 void editarIngrediente();
