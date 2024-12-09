@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "pizza.h"
-#include "ingrediente.h"
+#include "header/pizza.h"
+#include "header/ingrediente.h"
 
 extern Ingrediente *ingredientes;
 extern int numIngredientes;
