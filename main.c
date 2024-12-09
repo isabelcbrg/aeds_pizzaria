@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "pizza.h"
-#include "ingrediente.h"
+#include "header/ingrediente.h"
 
 // Funções de menu
 void menuIngredientes() {
