@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "ingrediente.h"
+#include "header/ingrediente.h"
 
 Ingrediente *ingredientes = NULL;
 int numIngredientes = 0;
