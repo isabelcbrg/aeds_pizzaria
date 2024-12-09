@@ -46,7 +46,7 @@ void editarIngrediente() {
         if (ingredientes[i].id == id) {
             printf("Novo nome: ");
             scanf(" %[^\n]", ingredientes[i].nome);
-            printf("Novo preço: ");
+            printf("Novo preco: ");
             scanf("%f", &ingredientes[i].preco);
             printf("Ingrediente atualizado com sucesso!\n");
             encontrado = 1;
