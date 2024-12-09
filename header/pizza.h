@@ -3,7 +3,7 @@
 
 #include "ingrediente.h"
 
-typedef struct Pizza{
+typedef struct Pizza {
     int id;
     char nome[50];
     char tamanho;
